@@ -1,0 +1,34 @@
+<h2 style="text-align:center;">Add Employee</h2>
+<form [formGroup]="addEmployee" (ngSubmit)="employeeFunction()">
+  <div class="form-group">
+    <label for="employee-email">Email address</label>
+    <input type="email" class="form-control"  formControlName="email" placeholder="name@example.com" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+    <div *ngIf="submitted && f.email.errors " class="invalid-feedback">
+    	<div *ngIf="f.email.errors.required">Email is required</div>
+    	<div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="employee-name">Employee Name</label>
+  	<input class="form-control" type="text" formControlName="name" [ngClass]="{'is-invalid':submitted && f.name.errors } ">
+    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">Name is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+ 	<label for="employee-position">Employee Position</label>
+  	<input class="form-control" type="text" formControlName="position" [ngClass]="{'is-invalid':submitted && f.position.errors }">
+    <div *ngIf="submitted && f.position.errors" class="invalid-feedback">
+        <div *ngIf="f.position.errors.required">Name is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="employee-address">Employee Address</label>
+    <textarea class="form-control" rows="3" formControlName="address" [ngClass]="{'is-invalid':submitted }"></textarea>
+    <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+        <div *ngIf="f.address.errors.required">Name is required</div>
+    </div>
+  </div>
+  <button type="submit" style="background:blue; color:white;" [disabled]="!addEmployee.valid">Submit Form</button>
+</form>
+

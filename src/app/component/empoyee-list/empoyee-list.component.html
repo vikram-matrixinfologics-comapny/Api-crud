@@ -1,0 +1,62 @@
+<div [ngClass]="{'table-display':submmitedEdit}">
+<div class="alert" [ngClass]="{'alert-success':message.message}">
+	{{message.message}}
+</div>
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <th>S No.</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Position</th>
+          <th>Address</th>
+          <th></th>
+          <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees; let i = index;">
+        <td>{{i+1}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.email}}</td>
+        <td>{{employee.position}}</td>
+        <td>{{employee.address}}</td>
+       <td><button class="btn btn-danger" (click)="deleteuserdetails(employee)">Delete</button></td>
+       <td>  <button class="btn btn-success" (click)="updateUser(employee)" style="margin-left: 20px;"> Edit</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="submmitedEdit">
+	{{empEditDatas|json}}
+	<div class="alert" [ngClass]="{'alert-success':submitted}">
+		{{message.message}}
+	</div>
+	<!-- <div *ngFor="let empEditData of empEditDatas;"> -->
+	<h2 style="text-align:center;">Edit Employee</h2>
+	<form [formGroup]="EditEmployee" (ngSubmit)="employeeEdit($event)">
+		<input type="hidden" value="{{empEditDatas.id}}" name="hiddenEmp">
+	  <div class="form-group">
+	    <label for="employee-email">Email address</label>
+	    <input type="email"  name="email" value="{{empEditDatas.email}}" class="form-control"  formControlName="email" placeholder="name@example.com" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+	    <div *ngIf="submitted && f.email.errors " class="invalid-feedback">
+	    	<div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="employee-name">Employee Name</label>
+	  	<input class="form-control" type="text" name="name" value="{{empEditDatas.name}}" formControlName="name" [ngClass]="{'is-invalid':submitted && f.name.errors } ">
+	  </div>
+	  <div class="form-group">
+	 	<label for="employee-position">Employee Position</label>
+	  	<input class="form-control" type="text" name="position" formControlName="position" value="{{empEditDatas.position}}" [ngClass]="{'is-invalid':submitted && f.position.errors }">
+	  </div>
+	  <div class="form-group">
+	    <label for="employee-address">Employee Address</label>
+	    <textarea class="form-control" name="address" value="{{empEditDatas.address}}" rows="3" formControlName="address" [ngClass]="{'is-invalid':submitted }"></textarea>
+	  </div>
+	  <button type="submit" style="background:blue; color:white;">Submit Form</button>
+	</form>
+	<!-- </div> -->
+</div>
